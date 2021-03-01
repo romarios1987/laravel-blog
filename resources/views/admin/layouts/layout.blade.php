@@ -56,7 +56,8 @@
                     <a href="#" class="dropdown-item">
                         <!-- Message Start -->
                         <div class="media">
-                            <img src="{{url('/assets/admin/img/user1-128x128.jpg')}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                            <img src="{{url('/assets/admin/img/user1-128x128.jpg')}}" alt="User Avatar"
+                                 class="img-size-50 mr-3 img-circle">
                             <div class="media-body">
                                 <h3 class="dropdown-item-title">
                                     Brad Diesel
@@ -72,7 +73,8 @@
                     <a href="#" class="dropdown-item">
                         <!-- Message Start -->
                         <div class="media">
-                            <img src="{{url('/assets/admin/img/user8-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                            <img src="{{url('/assets/admin/img/user8-128x128.jpg')}}" alt="User Avatar"
+                                 class="img-size-50 img-circle mr-3">
                             <div class="media-body">
                                 <h3 class="dropdown-item-title">
                                     John Pierce
@@ -88,7 +90,8 @@
                     <a href="#" class="dropdown-item">
                         <!-- Message Start -->
                         <div class="media">
-                            <img src="{{url('/assets/admin/img/user3-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                            <img src="{{url('/assets/admin/img/user3-128x128.jpg')}}" alt="User Avatar"
+                                 class="img-size-50 img-circle mr-3">
                             <div class="media-body">
                                 <h3 class="dropdown-item-title">
                                     Nora Silvester
@@ -156,7 +159,8 @@
             <!-- Sidebar user (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="{{url('/assets/admin/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+                    <img src="{{url('/assets/admin/img/user2-160x160.jpg')}}" class="img-circle elevation-2"
+                         alt="User Image">
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">Alexander Pierce</a>
@@ -165,7 +169,8 @@
 
             <!-- Sidebar Menu -->
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item">
@@ -184,13 +189,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{route('categories.index')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Список категорий</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{route('categories.create')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Новая категория</p>
                                 </a>
@@ -204,9 +209,28 @@
         <!-- /.sidebar -->
     </aside>
 
-    <!-- Content Wrapper. Contains page content -->
-    @yield('content')
-    <!-- /.content-wrapper -->
+    <div class="content-wrapper">
+        <div class="flash-message pl-2 pr-2">
+            @if ($errors->any())
+                <div class="alert alert-danger mt-3">
+                    <ul class="list-unstyled m-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            @if(session()->has('success'))
+                <div class="alert alert-success mt-3">
+                    {{session('success')}}
+                </div>
+            @endif
+        </div>
+
+
+        @yield('content')
+    </div>
 
     <footer class="main-footer text-center">
         <strong>Copyright &copy; {{date('Y')}}  {{ config('app.name', 'Laravel') }}</strong>
@@ -221,6 +245,17 @@
 <!-- ./wrapper -->
 
 <script src="{{asset('/assets/admin/js/admin.js')}}"></script>
+
+<script>
+    $('.nav-sidebar a').each(function () {
+        let location = window.location.protocol + '//' + window.location.host + window.location.pathname;
+        let link = this.href;
+        if (link === location) {
+            $(this).addClass('active');
+            $(this).closest('.has-treeview').addClass('menu-open');
+        }
+    })
+</script>
 
 </body>
 </html>
