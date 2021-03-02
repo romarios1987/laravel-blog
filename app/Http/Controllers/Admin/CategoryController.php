@@ -11,7 +11,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = Category::paginate(2);
+        $categories = Category::paginate(6);
 
         return view('admin.categories.index', compact('categories'));
     }
@@ -30,25 +30,36 @@ class CategoryController extends Controller
         ]);
 
         Category::create($request->all());
-        $request->session()->flash('success', 'Категория добавлена');
-        return redirect()->route('categories.index');
+//        $request->session()->flash('success', 'Категория добавлена');
+        return redirect()->route('categories.index')->with('success', 'Категория добавлена');
     }
 
 
     public function edit($id)
     {
-        dd(__METHOD__);
+        $category = Category::find($id);
+        return view('admin.categories.edit', compact('category'));
     }
 
 
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required'
+        ]);
+        $category = Category::find($id);
+        $category->update($request->all());
+        return redirect()->route('categories.index')->with('success', 'Категория обновлена');
     }
 
 
     public function destroy($id)
     {
-        dd(__METHOD__);
+//        $category = Category::find($id);
+//        $category->delete();
+
+        Category::destroy($id);
+
+        return redirect()->route('categories.index')->with('success', 'Категория удалена');
     }
 }
