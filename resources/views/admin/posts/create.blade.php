@@ -35,7 +35,7 @@
                 </div>
             </div>
 
-            <form action="{{route('posts.store')}}" role="form" method="post">
+            <form action="{{route('posts.store')}}" role="form" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
 
@@ -47,13 +47,13 @@
 
                     <div class="form-group">
                         <label for="description">Цитата</label>
-                        <textarea id="description" class="form-control" name="description" rows="3"
+                        <textarea id="description" class="form-control @error('description') is-invalid @enderror" name="description" rows="3"
                                   placeholder="Цитата ..."></textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="content">Контент</label>
-                        <textarea id="content" class="form-control" name="content" rows="5"
+                        <textarea id="content" class="form-control @error('content') is-invalid @enderror" name="content" rows="5"
                                   placeholder="Контент ..."></textarea>
                     </div>
 
