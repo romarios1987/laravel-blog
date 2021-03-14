@@ -14,6 +14,12 @@
 
     <link rel="stylesheet" href="{{asset('/assets/admin/css/admin.css')}}">
 
+    <style>
+        .ck-editor__editable_inline {
+            min-height: 300px;
+        }
+    </style>
+
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
@@ -307,6 +313,90 @@
             $(this).closest('.has-treeview').addClass('menu-open');
         }
     })
+</script>
+
+
+<script src="{{asset('/assets/admin/ckeditor5/build/ckeditor.js')}}"></script>
+<script src="{{asset('/assets/admin/ckfinder/ckfinder.js')}}"></script>
+
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#content' ), {
+
+            toolbar: {
+                items: [
+                    'heading',
+                    '|',
+                    'bold',
+                    'italic',
+                    'link',
+                    'bulletedList',
+                    'numberedList',
+                    '|',
+                    'outdent',
+                    'indent',
+                    '|',
+                    'fontSize',
+                    'fontFamily',
+                    'fontColor',
+                    'alignment',
+                    'blockQuote',
+                    'insertTable',
+                    'mediaEmbed',
+                    'undo',
+                    'redo',
+                    'CKFinder',
+                    'code'
+                ]
+            },
+            language: 'ru',
+            image: {
+                toolbar: [
+                    'imageTextAlternative',
+                    'imageStyle:full',
+                    'imageStyle:side'
+                ]
+            },
+            table: {
+                contentToolbar: [
+                    'tableColumn',
+                    'tableRow',
+                    'mergeTableCells'
+                ]
+            },
+            licenseKey: '',
+
+        } )
+        .then( editor => {
+            window.editor = editor;
+
+        } )
+        .catch( error => {
+            console.error( 'Oops, something went wrong!' );
+            console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
+            console.warn( 'Build id: 2wf1z5k3199i-cdecxw4rlgrw' );
+            console.error( error );
+        } );
+
+
+
+
+
+    ClassicEditor
+        .create( document.querySelector( '#description' ), {
+            toolbar: ['|', 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo' ],
+            language: 'ru',
+            image: {
+                toolbar: [
+                    'imageTextAlternative',
+                    'imageStyle:full',
+                    'imageStyle:side'
+                ]
+            },
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
 </script>
 
 </body>
